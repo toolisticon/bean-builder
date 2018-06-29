@@ -1,145 +1,71 @@
-# SPI-Annotation-Processor
+# Bean-Builder
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.toolisticon.spiap/spiap-parent/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.toolisticon.spiap/spiap-parent)
-[![Build Status](https://travis-ci.org/toolisticon/SPI-Annotation-Processor.svg?branch=master)](https://travis-ci.org/toolisticon/SPI-Annotation-Processor)
-[![codecov](https://codecov.io/gh/toolisticon/SPI-Annotation-Processor/branch/master/graph/badge.svg)](https://codecov.io/gh/toolisticon/SPI-Annotation-Processor)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.toolisticon.spiap/bean-builder/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.toolisticon.beanuilder/beanbuilder-parent)
+[![Build Status](https://travis-ci.org/toolisticon/bean-builder.svg?branch=master)](https://travis-ci.org/toolisticon/bean-builder)
+[![codecov](https://codecov.io/gh/toolisticon/bean-builder/branch/master/graph/badge.svg)](https://codecov.io/gh/toolisticon/bean-builder)
+
+This is an example project that demonstrates the usage of the [Annotation-Processor-Toolkit](https://github.com/holisticon/annotation-processor-toolkit).
 
 # Why you should use this project?
 
-If you want to use a service provider interface (SPI) you need to register your service implementation in the /META-INF/services/&lt;Full qualified spi interface name&gt; file.
-Additionally you usually need to write a service locator to be able to use the service implementation.
-
-The annotation processor offered by this project provides exactly this. It allows you to create the service locator file just by adding an annotation to you spi implementation.
-Additionally it will generate a service locator for you.  
+Usually using a builder fluent api to create POJO instances is far more readable than creating an instance and using the setter methods.
 
 # Features
 Annotation processor that
-- provides support for generating service locator file in /META-INF/services/&lt;Full qualified spi interface name&gt;
-- provides support for generating service locator class for accessing the SPI implementations
+
+- creates a bean builder class for POJO classes that allows you to create instances via a fluent API.
+- is fully lombok compatible
 
 # How does it work?
 
-First you need to add the SPI annotation processor dependencies to your project.
-Since the annotation processor has to be there just at compile time, it's ok to use provided scope.
-
+Just add the bean builder annotation processor dependency to your
 	<dependencies>
-	    <!-- api is just needed in compile scope if you want to use the ServiceLocator features -->
-	    <dependency>
-	        <groupId>io.toolisticon.spiap</groupId>
-	        <artifactId>spiap-api</artifactId>
-	    </dependency>
 	    <!-- must be on provided scope since it is just needed at compile time -->
 	    <dependency>
-	        <groupId>io.toolisticon.spiap</groupId>
-	        <artifactId>spiap-processor</artifactId>
+	        <groupId>io.toolisticon.beanbuilder</groupId>
+	        <artifactId>beanbuilder-processor</artifactId>
 	        <scope>provided</scope>
 	    </dependency>
 	</dependencies>
 
-The annotation processor then will create the configuration into the StandardLocation.SOURCE_OUTPUT folder.
-You need to use the following build-helper-maven-plugin configuration to include the generated resource files into your jar:
+Pojo classes you want to create a builder for must be annotated with the Builder annotation.
 
-    <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <version>1.9.1</version>
-        <executions>
-            <execution>
-                <id>add-resource</id>
-                <phase>generate-resources</phase>
-                <goals>
-                    <goal>add-resource</goal>
-                </goals>
-                <configuration>
-                    <resources>
-                        <resource>
-                            <directory>target/generated-sources/annotations</directory>
-                            <targetPath />
-                        </resource>
-                    </resources>
-                </configuration>
-            </execution>
-        </executions>
-    </plugin>
+## Preconditions
 
-## How to generate the service locator class
-### By annotating the service provider interface
-Just add the Spi annotation to your SPI:
+POJOs must
 
-	@Spi
-	public interface ExampleSpiInterface {
-
-	    String doSomething();
-
-	}
-
-The locator is named like the SPI suffixed with ServiceLocator (ExampleSpiInterfaceServiceLocator in this example)
-
-### By annotating a package
-Create a package-info.java file in the package were you want to create the service locator in.
-Then add the SpiServiceLocator annotation in it:
-
-    @SpiServiceLocator(ExampleSpiInterface.class)
-    package your.target.package;
-
-    import SpiServiceLocator;
-    import your.spi.package.ExampleSpiInterface;
-
-The locator will be created in the annotated package. It is named like the SPI suffixed with ServiceLocator (ExampleSpiInterfaceServiceLocator in this example)
+- Provide an accessible NoArg constructor
+- must provide getters and setter of fields (explicitely implemeted or via lombok)
 
 
-## How to register a service implementation
-Just add a Service annotation to your service implementation:
+## Example
 
-	@Service(value = ExampleSpiInterface.class, id = "YOUR_OPTIONAL_SERVICE_ID", description = "OPTIONAL DESCRIPTION", priority = 0)
-	public class ExampleSpiService implements ExampleSpiInterface {
-	    @Override
-            public String doSomething() {
-                return "IT WORKS !";
-            }
-	}
+POJO:
 
-Service annotations mandatory value must declare the SPI you want the service class to be registered to.
-All other annotation attributes are optional. 
-
-- id defines a custom id which can be used to locate a specific servics implementation via the generated service locator class. Defaults to fully qualified service class name in generated service locator.
-- description declares a short description about the implementation
-- priority is used to define a specific order in which the services are located
-
-It's also possible to implement more than one SPI in a class by using the Services annotation:
-        
-	@Services({
-	    @Service(value = ExampleSpiInterface1.class, id = "YOUR_OPTIONAL_SERVICE_ID", description = "OPTIONAL DESCRIPTION", priority = 0),
-	    @Service(value = ExampleSpiInterface2.class)
-	})
-	public class ExampleSpiService implements ExampleSpiInterface1, ExampeSpiInterface2 {
-	    @Override
-            public String doSomething1() {
-                return "IT WORKS !";
-            }
-	    @Override
-            public String doSomething2() {
-                return "IT WORKS TOO!";
-            }
-	}
-
-## How to use the service locator
-
-	System.out.println(ExampleSpiInterfaceServiceLocator.locate().doSomething());
-
-
-See our examples subprojects about how to use the annotations.
-
-## Disable service implementations in the service locator
-Just add the OutOfService annotation next to the Services or Service annotation to disable the service implementation in the service locator.
+    @BeanBuilder
+    @Data
+    public class TestBean {
+    
+        private String stringField;
+        private Long longField;
+    
+    }
+    
+Usage of builder:
+   
+    TestBean testBean = TestBeanBuilder.createBuilder()
+       .withLongField(5L)
+       .withStringField("TEST")
+       .build(); 
+    
 
 # Contributing
 
 We welcome any kind of suggestions and pull requests.
 
-## Building and developing the SPI-Annotation-Processor
+## Building and developing the Bean-Builder
 
-The SPI-Annotation-Processor is built using Maven (at least version 3.0.0).
+The Bean-Builder is built using Maven (at least version 3.0.0).
 A simple import of the pom in your IDE should get you up and running. To build the annotation-processor-toolkit on the commandline, just run `mvn` or `mvn clean install`
 
 ## Requirements
@@ -152,7 +78,7 @@ The likelihood of a pull request being used rises with the following properties:
 
 ## Contributions
 
-- (2017) Tobias Stamann (Holisticon AG)
+- (2018) Tobias Stamann (Holisticon AG)
 
 ## Sponsoring
 
