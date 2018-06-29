@@ -1,0 +1,155 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>beanbuilder-processor</artifactId>
+    <packaging>bundle</packaging>
+
+    <parent>
+        <groupId>io.toolisticon.beanbuilder</groupId>
+        <artifactId>beanbuilder-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <name>beanbuilder-processor</name>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>io.toolisticon.beanbuilder</groupId>
+            <artifactId>beanbuilder-api</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>io.toolisticon.annotationprocessortoolkit</groupId>
+            <artifactId>annotationprocessor</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.toolisticon.spiap</groupId>
+            <artifactId>spiap-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.toolisticon.spiap</groupId>
+            <artifactId>spiap-processor</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.testing.compile</groupId>
+            <artifactId>compile-testing</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.toolisticon.annotationprocessortoolkit</groupId>
+            <artifactId>testhelper</artifactId>
+        </dependency>
+
+
+    </dependencies>
+
+
+    <build>
+
+        <plugins>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.4.3</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+
+
+                        <configuration>
+
+                            <!--
+                            <artifactSet>
+                                <excludes>
+                                    <exclude>io.toolisticon.beanbuilder:beanbuilder-api</exclude>
+
+                                </excludes>
+                            </artifactSet>
+                            -->
+
+                            <!--
+                                usually you should repackage all referenced 3RD party libraries into your annotation processor jar.
+                                    - because the annotation processor should always be linked as provided dependency when it is used.
+                                    - to prevent a version conflict of your annotation processors dependencies and the applications dependencies.
+                            -->
+
+                            <relocations>
+                                <relocation>
+                                    <pattern>io.toolisticon.annotationprocessortoolkit</pattern>
+                                    <shadedPattern>
+                                        io.toolisticon.example.beanbuilder.annotationprocessor._3rdparty.io.toolisticon.annotationprocessortoolkit
+                                    </shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>io.toolisticon.spiap</pattern>
+                                    <shadedPattern>
+                                        io.toolisticon.example.beanbuilder.annotationprocessor._3rdparty.io.toolisticon.spiap
+                                    </shadedPattern>
+                                </relocation>
+
+                            </relocations>
+
+                        </configuration>
+
+                    </execution>
+                </executions>
+
+
+            </plugin>
+
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <verbose>true</verbose>
+                    <source>${java.compile.source.version}</source>
+                    <target>${java.compile.target.version}</target>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.9.1</version>
+                <executions>
+                    <execution>
+                        <id>add-resource</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>target/generated-sources/annotations</directory>
+                                    <targetPath/>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+
+</project>
