@@ -25,7 +25,7 @@
             <groupId>io.toolisticon.annotationprocessortoolkit</groupId>
             <artifactId>annotationprocessor</artifactId>
         </dependency>
-        
+
 
         <dependency>
             <groupId>io.toolisticon.spiap</groupId>
@@ -128,7 +128,7 @@
                 <executions>
                     <execution>
                         <id>add-resource</id>
-                        <phase>generate-resources</phase>
+                        <phase>generate-test-sources</phase>
                         <goals>
                             <goal>add-resource</goal>
                         </goals>
