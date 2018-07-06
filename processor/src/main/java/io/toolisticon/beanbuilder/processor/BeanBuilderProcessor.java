@@ -60,10 +60,7 @@ public class BeanBuilderProcessor extends AbstractAnnotationProcessor {
             BeanBuilder beanBuilderAnnotation = typeElement.getAnnotation(BeanBuilder.class);
 
             // Now get all attributes
-            createBuilderClass(typeElement, getAttributes(typeElement, beanBuilderAnnotation.inheritFields()));
-
-
-
+            createBuilderClass(typeElement, beanBuilderAnnotation, getAttributes(typeElement, beanBuilderAnnotation.inheritFields()));
 
 
         }
@@ -99,13 +96,17 @@ public class BeanBuilderProcessor extends AbstractAnnotationProcessor {
         return result;
     }
 
-    protected void createBuilderClass(TypeElement typeElement, List<Attribute> attributes) {
+    protected void createBuilderClass(TypeElement typeElement, BeanBuilder beanBuilderAnnotation, List<Attribute> attributes) {
 
 
         // Now create builder class with attributes
-        String packageName = ((PackageElement) ElementUtils.AccessEnclosingElements.getFirstEnclosingElementOfKind(typeElement, ElementKind.PACKAGE)).getQualifiedName().toString();
+        String packageName = beanBuilderAnnotation.packageName().isEmpty() ?
+                ((PackageElement) ElementUtils.AccessEnclosingElements.getFirstEnclosingElementOfKind(typeElement, ElementKind.PACKAGE)).getQualifiedName().toString()
+                : beanBuilderAnnotation.packageName();
         String baseClassName = typeElement.getSimpleName().toString();
-        String builderClassName = typeElement.getSimpleName().toString() + "Builder";
+        String builderClassName = beanBuilderAnnotation.className().isEmpty() ?
+                typeElement.getSimpleName().toString() + "Builder"
+                : beanBuilderAnnotation.className();
 
         // fill imports
         Set<String> imports = new HashSet<String>();
