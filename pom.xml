@@ -8,7 +8,7 @@
 
     <name>beanbuilder-parent</name>
     <description>Please refer to https://github.com/toolisticon/bean-builder</description>
-    <url>https://github.com/holisticon/beanbuilder</url>
+    <url>https://github.com/holisticon/bean-builder</url>
 
     <modules>
 
@@ -60,7 +60,7 @@
 
 
     <issueManagement>
-        <url>https://github.com/toolisticon/beanbuilder/issues</url>
+        <url>https://github.com/toolisticon/bean-builder/issues</url>
         <system>GitHub Issues</system>
     </issueManagement>
 
