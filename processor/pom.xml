@@ -25,16 +25,13 @@
             <groupId>io.toolisticon.annotationprocessortoolkit</groupId>
             <artifactId>annotationprocessor</artifactId>
         </dependency>
+        
 
         <dependency>
             <groupId>io.toolisticon.spiap</groupId>
             <artifactId>spiap-api</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>io.toolisticon.spiap</groupId>

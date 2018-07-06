@@ -2,11 +2,7 @@ package io.toolisticon.beanbuilder.processor;
 
 
 import io.toolisticon.annotationprocessortoolkit.tools.BeanUtils;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 public class Attribute {
 
     private final BeanUtils.AttributeResult wrappedAttribute;
@@ -31,5 +27,7 @@ public class Attribute {
         return wrappedAttribute.getFieldTypeElement().getSimpleName().toString();
     }
 
-
+    public BeanUtils.AttributeResult getWrappedAttribute() {
+        return wrappedAttribute;
+    }
 }
