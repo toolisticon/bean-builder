@@ -80,7 +80,7 @@
         <java.compile.target.version>1.6</java.compile.target.version>
 
 
-        <annotationProcessorToolkit.version>0.10.2-SNAPSHOT</annotationProcessorToolkit.version>
+        <annotationProcessorToolkit.version>0.11.1</annotationProcessorToolkit.version>
         <spiap.version>0.5.1</spiap.version>
 
         <!-- versions of test dependencies -->

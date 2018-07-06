@@ -1,7 +1,8 @@
 package ${ packageName };
 
 !{for import : imports}
-import ${ import };!{/for}
+import ${ import };
+!{/for}
 
 
 /**
@@ -9,9 +10,9 @@ import ${ import };!{/for}
  */
 public class ${ builderClassName } {
 
-    !{for attribute : attributes}
+!{for attribute : attributes}
     private ${attribute.shortTypeName} ${attribute.fieldName};
-    !{/for}
+!{/for}
 
 
     /**
@@ -28,21 +29,21 @@ public class ${ builderClassName } {
 
         ${baseClassName} returnValue = new ${baseClassName}();
 
-        !{for attribute : attributes}
+!{for attribute : attributes}
         returnValue.set${attribute.getCCFieldName}( this.${attribute.fieldName} );
-        !{/for}
+!{/for}
 
         return returnValue;
 
     }
 
-    !{for attribute : attributes}
+!{for attribute : attributes}
     public ${ builderClassName } with${attribute.getCCFieldName} (${attribute.shortTypeName} value){
         this.${attribute.fieldName} = value;
         return this;
     }
 
-    !{/for}
+!{/for}
 
 
     /**

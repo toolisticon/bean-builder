@@ -5,7 +5,6 @@ import io.toolisticon.annotationprocessortoolkit.tools.BeanUtils;
 import io.toolisticon.annotationprocessortoolkit.tools.ElementUtils;
 import io.toolisticon.annotationprocessortoolkit.tools.FilerUtils;
 import io.toolisticon.annotationprocessortoolkit.tools.MessagerUtils;
-import io.toolisticon.annotationprocessortoolkit.tools.TypeUtils;
 import io.toolisticon.annotationprocessortoolkit.tools.corematcher.CoreMatchers;
 import io.toolisticon.annotationprocessortoolkit.tools.fluentvalidator.FluentElementValidator;
 import io.toolisticon.annotationprocessortoolkit.tools.generators.SimpleJavaWriter;
@@ -57,8 +56,13 @@ public class BeanBuilderProcessor extends AbstractAnnotationProcessor {
             // It's safe to cast to TypeElement now
             TypeElement typeElement = (TypeElement) element;
 
+            // get annotation
+            BeanBuilder beanBuilderAnnotation = typeElement.getAnnotation(BeanBuilder.class);
+
             // Now get all attributes
-            createBuilderClass(typeElement, getAttributes(typeElement));
+            createBuilderClass(typeElement, getAttributes(typeElement, beanBuilderAnnotation.inheritFields()));
+
+
 
 
 
@@ -70,17 +74,24 @@ public class BeanBuilderProcessor extends AbstractAnnotationProcessor {
 
     /**
      * Get all attributes
+     *
      * @param typeElement the typeElement to get the attributes for
      * @return a list containing all attributes
      */
-    protected List<Attribute> getAttributes (TypeElement typeElement) {
-        BeanUtils.AttributeResult[] attributes = BeanUtils.getAttributes(typeElement);
+    protected List<Attribute> getAttributes(TypeElement typeElement, boolean inheritFields) {
+        BeanUtils.AttributeResult[] attributes = inheritFields ? BeanUtils.getAttributesWithInheritance(typeElement) : BeanUtils.getAttributes(typeElement);
 
         List<Attribute> result = new ArrayList<Attribute>();
+        Set<String> addedFieldNames = new HashSet<String>();
         if (attributes != null) {
 
             for (BeanUtils.AttributeResult attribute : attributes) {
-                result.add(new Attribute(attribute));
+
+                if (!addedFieldNames.contains(attribute.getFieldName())) {
+                    addedFieldNames.add(attribute.getFieldName());
+                    result.add(new Attribute(attribute));
+                }
+
             }
 
         }
@@ -88,9 +99,11 @@ public class BeanBuilderProcessor extends AbstractAnnotationProcessor {
         return result;
     }
 
-    protected void createBuilderClass (TypeElement typeElement, List<Attribute> attributes) {
+    protected void createBuilderClass(TypeElement typeElement, List<Attribute> attributes) {
+
+
         // Now create builder class with attributes
-        String packageName = ((PackageElement)ElementUtils.AccessEnclosingElements.getFirstEnclosingElementOfKind(typeElement,ElementKind.PACKAGE)).getQualifiedName().toString();
+        String packageName = ((PackageElement) ElementUtils.AccessEnclosingElements.getFirstEnclosingElementOfKind(typeElement, ElementKind.PACKAGE)).getQualifiedName().toString();
         String baseClassName = typeElement.getSimpleName().toString();
         String builderClassName = typeElement.getSimpleName().toString() + "Builder";
 
@@ -108,7 +121,6 @@ public class BeanBuilderProcessor extends AbstractAnnotationProcessor {
         model.put("baseClassName", baseClassName);
         model.put("builderClassName", builderClassName);
         model.put("attributes", attributes);
-
 
 
         // create the Builder class

@@ -5,9 +5,7 @@ import lombok.Data;
 
 @BeanBuilder
 @Data
-public class TestBean {
-
-    private Long longField;
+public class TestBeanWithInheritance extends TestBean{
+    private String myField;
     private String stringField;
-
 }
