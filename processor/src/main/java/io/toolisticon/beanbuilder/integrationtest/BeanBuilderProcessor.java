@@ -96,6 +96,13 @@ public class BeanBuilderProcessor extends AbstractAnnotationProcessor {
         return result;
     }
 
+    /**
+     * Generates the builder class
+     *
+     * @param typeElement
+     * @param beanBuilderAnnotation
+     * @param attributes
+     */
     protected void createBuilderClass(TypeElement typeElement, BeanBuilder beanBuilderAnnotation, List<Attribute> attributes) {
 
 
