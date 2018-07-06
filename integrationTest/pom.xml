@@ -107,10 +107,8 @@
 
         <dependency>
             <groupId>io.toolisticon.beanbuilder</groupId>
-            <artifactId>example</artifactId>
-            <version>${project.version}</version>
+            <artifactId>beanbuilder-processor</artifactId>
         </dependency>
-
 
 
     </dependencies>
