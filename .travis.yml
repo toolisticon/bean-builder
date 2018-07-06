@@ -9,9 +9,9 @@ jdk:
 - openjdk7
 - openjdk8
 - oraclejdk8
-install: mvn install -DskipTests=true -q
+install: mvn clean install -DskipTests=true -q
 script: 
-- mvn verify -B -q
+- mvn clean verify -B -q
 - mvn -Danimal.sniffer.skip=true cobertura:cobertura
 
 after_success: 
