@@ -453,6 +453,7 @@
             	<groupId>io.toolisticon.spiap</groupId>
             	<artifactId>spiap-api</artifactId>
             	<version>${spiap.version}</version>
+                <scope>provided</scope>
         	</dependency>
 
         	<dependency>

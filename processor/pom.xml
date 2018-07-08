@@ -89,16 +89,9 @@
                                 <relocation>
                                     <pattern>io.toolisticon.annotationprocessortoolkit</pattern>
                                     <shadedPattern>
-                                        io.toolisticon.example.beanbuilder.annotationprocessor._3rdparty.io.toolisticon.annotationprocessortoolkit
+                                        io.toolisticon.beanbuilder._3rdparty.io.toolisticon.annotationprocessortoolkit
                                     </shadedPattern>
                                 </relocation>
-                                <relocation>
-                                    <pattern>io.toolisticon.spiap</pattern>
-                                    <shadedPattern>
-                                        io.toolisticon.example.beanbuilder.annotationprocessor._3rdparty.io.toolisticon.spiap
-                                    </shadedPattern>
-                                </relocation>
-
                             </relocations>
 
                         </configuration>
