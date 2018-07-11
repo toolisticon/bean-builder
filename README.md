@@ -1,6 +1,6 @@
 # Bean-Builder
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.toolisticon.spiap/bean-builder/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.toolisticon.beanuilder/beanbuilder-parent)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.toolisticon.beanbuilder/bean-builder/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.toolisticon.beanbuilder/beanbuilder-parent)
 [![Build Status](https://travis-ci.org/toolisticon/bean-builder.svg?branch=master)](https://travis-ci.org/toolisticon/bean-builder)
 [![codecov](https://codecov.io/gh/toolisticon/bean-builder/branch/master/graph/badge.svg)](https://codecov.io/gh/toolisticon/bean-builder)
 
