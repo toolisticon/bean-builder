@@ -9,10 +9,13 @@ jdk:
 - openjdk7
 - openjdk8
 - oraclejdk8
+- oraclejdk9
+- oraclejdk11
+- openjdk10
+
 install: mvn install -DskipTests=true -q
 script: 
 - mvn verify -B -q
-- mvn -Danimal.sniffer.skip=true cobertura:cobertura
 
 after_success: 
 - bash <(curl -s https://codecov.io/bash)
