@@ -42,30 +42,71 @@ POJOs must
 
 POJO:
 
-    @BeanBuilder
-    @Data
-    public class TestBean {
+```java
+@BeanBuilder
+public class TestBean {
+
+    private String stringField;
+    private Long longField;
     
-        private String stringField;
-        private Long longField;
-    
+    public void setStringField(String stringField) {
+        this.stringField = stringField;
     }
+    
+    public String getStringField() {
+        return this.stringField;
+    }
+    
+    public void setLongField(String longField) {
+        this.longField = longField;
+    }
+    
+    public Long getLongField() {
+        return this.longField;
+    }
+
+}
+```
+    
+POJO with lombok:
+
+```java
+@BeanBuilder
+@Data
+public class TestBean {
+
+    private String stringField;
+    private Long longField;
+
+}
+```
     
 Usage of builder:
    
-    TestBean testBean = TestBeanBuilder.createBuilder()
-       .withLongField(5L)
-       .withStringField("TEST")
-       .build(); 
-    
+```java
+TestBean testBean = TestBeanBuilder.createBuilder()
+   .withLongField(5L)
+   .withStringField("TEST")
+   .build(); 
+```
 
+It's also possible to generate bean builder for existing classes by using the ThirdPartyBeanBuilder annotation in a package-info.java file.
+In this case the Builder will be created as package private.
+
+```java
+@ThirdPartyBeanBuilder({TestBean.class})
+package io.toolisticon.beanbuilder.integrationtest;
+
+import io.toolisticon.beanbuilder.api.ThirdPartyBeanBuilder;
+```
+    
 # Contributing
 
 We welcome any kind of suggestions and pull requests.
 
 ## Building and developing the Bean-Builder
 
-The Bean-Builder is built using Maven (at least version 3.0.0).
+The Bean-Builder is built using Maven.
 A simple import of the pom in your IDE should get you up and running. To build the annotation-processor-toolkit on the commandline, just run `mvn` or `mvn clean install`
 
 ## Requirements
