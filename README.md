@@ -91,7 +91,7 @@ TestBean testBean = TestBeanBuilder.createBuilder()
 ```
 
 It's also possible to generate bean builder for existing classes by using the ThirdPartyBeanBuilder annotation in a package-info.java file.
-In this case the Builder will be created as package private.
+In this case the Builder will be created inside the annotated package with package private visibility.
 
 ```java
 @ThirdPartyBeanBuilder({TestBean.class})
