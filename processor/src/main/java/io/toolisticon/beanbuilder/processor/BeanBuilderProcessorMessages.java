@@ -9,7 +9,7 @@ import io.toolisticon.annotationprocessortoolkit.tools.corematcher.ValidationMes
 public enum BeanBuilderProcessorMessages implements ValidationMessage {
 
 
-    ERROR_COULD_NOT_CREATE_BUILDER_CLASS("SERVICE_ERROR_001", "Could not create Builder class");
+    ERROR_COULD_NOT_CREATE_BUILDER_CLASS("SERVICE_ERROR_001", "Could not create Builder class ${0} : ${1}");
 
 
     /**
@@ -49,7 +49,6 @@ public enum BeanBuilderProcessorMessages implements ValidationMessage {
     public String getMessage() {
         return message;
     }
-
 
 
 }

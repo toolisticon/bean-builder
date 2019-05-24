@@ -8,7 +8,7 @@ import ${ import };
 /**
  * A Builder for {@link ${baseClassName}}.
  */
-public class ${ builderClassName } {
+${visibility} class ${ builderClassName } {
 
 !{for attribute : attributes}
     private ${attribute.shortTypeName} ${attribute.fieldName};

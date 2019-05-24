@@ -7,6 +7,9 @@ import io.toolisticon.compiletesting.JavaFileObjectUtils;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.tools.JavaFileObject;
+import javax.tools.StandardLocation;
+
 
 /**
  * Tests of {@link io.toolisticon.beanbuilder.api.BeanBuilder}.
@@ -113,5 +116,16 @@ public class BeanBuilderProcessorTest {
                 .testCompilation();
     }
 
+    @Test
+    public void test_Test_valid_of_third_party_bean_builder_with_doublet() {
+
+        CompileTestBuilder
+                .compilationTest()
+                .addProcessors(ThirdPartyBeanBuilderProcessor.class)
+                .addSources(JavaFileObjectUtils.readFromResource("testcases/thirdpartybeanbuilderwithdoublet/package-info.java"))
+                .compilationShouldSucceed()
+                .expectedJavaFileObjectExists(StandardLocation.SOURCE_OUTPUT, "io.toolisticon.beanbuilder.processor.ObjectBuilder", JavaFileObject.Kind.SOURCE)
+                .testCompilation();
+    }
 
 }
