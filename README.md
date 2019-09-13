@@ -25,14 +25,14 @@ Annotation processor that
 Just add the bean builder annotation processor dependency to your
 
 ```xml
-	<dependencies>
-	    <!-- must be on provided scope since it is just needed at compile time -->
-	    <dependency>
-	        <groupId>io.toolisticon.beanbuilder</groupId>
-	        <artifactId>beanbuilder-processor</artifactId>
-	        <scope>provided</scope>
-	    </dependency>
-	</dependencies>
+<dependencies>
+    <!-- must be on provided scope since it is just needed at compile time -->
+    <dependency>
+	<groupId>io.toolisticon.beanbuilder</groupId>
+	<artifactId>beanbuilder-processor</artifactId>
+        <scope>provided</scope>
+    </dependency>
+</dependencies>
 ```
 
 Classes you want to create a builder for must be annotated with the _Builder_ annotation.
