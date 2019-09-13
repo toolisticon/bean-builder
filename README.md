@@ -6,18 +6,20 @@
 
 This is an example project that demonstrates the usage of the [Annotation-Processor-Toolkit](https://github.com/holisticon/annotation-processor-toolkit).
 
+It provides an annotation processor that creates bean builder classes that allows you to create bean instances via a fluent API.
+
 # Why you should use this project?
 
-During the implementation of unit or integration test it's a common task to setup instance used for testing. 
+During the implementation of unit or integration test it's a common task to setup bean instances used for testing. 
 
-Usually using a fluent builder api to create instances is far more readable than creating an instance and using the it's setter methods to set the desired values.
+Usually it's more convenient and far more readable to use a fluent builder api to create the bean instances than to create a bean instance and to use it's setter methods.
 
-This project provides an annotation processor which allows you to generate a builder class for your own and 3rd party classes. It even supports setting of inherited attributes.
+This project provides an annotation processor which allows you to generate a bean builder class for your own and 3rd party bean classes. It even supports setting of inherited attributes.
 
 # Features
 Annotation processor that
 
-- creates a bean builder class for your own and 3rd party classes that allows you to create instances via a fluent API.
+- creates a bean builder class for your own and 3rd party bean classes that allows you to create bean instances via a fluent API.
 - is fully lombok compatible
 
 # How does it work?
@@ -35,17 +37,16 @@ Just add the bean builder annotation processor dependency to your
 </dependencies>
 ```
 
-Classes you want to create a builder for must be annotated with the _Builder_ annotation.
-Additionally you can create builder classes by using the _ThirdPartyBeanBuilder_ annoation in a packacke-info.java file.
+Bean builder classes can be created by annotating your bean class with the _Builder_ annotation or by using the _ThirdPartyBeanBuilder_ annoation in a packacke-info.java file.
 
 For further information about usage check Examples section down below.
 
 ## Preconditions
 
-Class must
+Builder classes can be created for classes that 
 
-- Provide an accessible NoArg constructor
-- must provide getters and setter for fields (explicitely implemeted or via lombok)
+- provide an accessible NoArg constructor
+- provide getters and setter for fields (explicitely implemeted or via lombok)
 
 
 ## Example
@@ -100,7 +101,7 @@ TestBean testBean = TestBeanBuilder.createBuilder()
    .build(); 
 ```
 
-It's also possible to generate bean builder for existing classes by using the ThirdPartyBeanBuilder annotation in a package-info.java file.
+It's also possible to generate bean builder classes for existing classes by using the ThirdPartyBeanBuilder annotation in a package-info.java file.
 In this case the Builder will be created inside the annotated package with package private visibility.
 
 ```java
