@@ -8,17 +8,21 @@ This is an example project that demonstrates the usage of the [Annotation-Proces
 
 # Why you should use this project?
 
-Usually using a builder fluent api to create POJO instances is far more readable than creating an instance and using the setter methods.
+During the implementation of unit or integration test it's a common task to setup instance used for testing. 
+Usually using a fluent builder api to create instances is far more readable than creating an instance and using the it's setter methods to set the desired values.
+This project provides an annotation processor which allows you to generate a builder class for your own and 3rd party classes. It even supports setting of inherited attributes.
 
 # Features
 Annotation processor that
 
-- creates a bean builder class for POJO classes that allows you to create instances via a fluent API.
+- creates a bean builder class for your own and 3rd party classes that allows you to create instances via a fluent API.
 - is fully lombok compatible
 
 # How does it work?
 
 Just add the bean builder annotation processor dependency to your
+
+```xml
 	<dependencies>
 	    <!-- must be on provided scope since it is just needed at compile time -->
 	    <dependency>
@@ -27,15 +31,19 @@ Just add the bean builder annotation processor dependency to your
 	        <scope>provided</scope>
 	    </dependency>
 	</dependencies>
+```
 
-Pojo classes you want to create a builder for must be annotated with the Builder annotation.
+Classes you want to create a builder for must be annotated with the _Builder_ annotation.
+Additionally you can create builder classes by using the _ThirdPartyBeanBuilder_ annoation in a packacke-info.java file.
+
+For further information about usage check Examples section down below.
 
 ## Preconditions
 
-POJOs must
+Class must
 
 - Provide an accessible NoArg constructor
-- must provide getters and setter of fields (explicitely implemeted or via lombok)
+- must provide getters and setter for fields (explicitely implemeted or via lombok)
 
 
 ## Example
@@ -107,7 +115,7 @@ We welcome any kind of suggestions and pull requests.
 ## Building and developing the Bean-Builder
 
 The Bean-Builder is built using Maven.
-A simple import of the pom in your IDE should get you up and running. To build the annotation-processor-toolkit on the commandline, just run `mvn` or `mvn clean install`
+A simple import of the pom in your IDE should get you up and running. To build the bean-builder on the commandline, just run `mvn` or `mvn clean install`
 
 ## Requirements
 
