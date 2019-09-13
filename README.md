@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/toolisticon/bean-builder.svg?branch=master)](https://travis-ci.org/toolisticon/bean-builder)
 [![codecov](https://codecov.io/gh/toolisticon/bean-builder/branch/master/graph/badge.svg)](https://codecov.io/gh/toolisticon/bean-builder)
 
-This is an example project that demonstrates the usage of the [Annotation-Processor-Toolkit](https://github.com/holisticon/annotation-processor-toolkit).
+This is an example project that demonstrates the usage of the [Annotation-Processor-Toolkit](https://github.com/holisticon/annotation-processor-toolkit) and the [Compile-Testing](https://github.com/toolisticon/compile-testing) libraries.
 
 It provides an annotation processor that creates bean builder classes that allows you to create bean instances via a fluent API.
 
