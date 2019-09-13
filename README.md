@@ -9,7 +9,9 @@ This is an example project that demonstrates the usage of the [Annotation-Proces
 # Why you should use this project?
 
 During the implementation of unit or integration test it's a common task to setup instance used for testing. 
+
 Usually using a fluent builder api to create instances is far more readable than creating an instance and using the it's setter methods to set the desired values.
+
 This project provides an annotation processor which allows you to generate a builder class for your own and 3rd party classes. It even supports setting of inherited attributes.
 
 # Features
