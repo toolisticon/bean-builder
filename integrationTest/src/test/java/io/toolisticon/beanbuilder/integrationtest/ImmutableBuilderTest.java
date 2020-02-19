@@ -20,10 +20,13 @@ public class ImmutableBuilderTest {
         TestBeanBuilder testBeanBuilder3 = testBeanBuilder2.withFieldB(5L);
         MatcherAssert.assertThat(testBeanBuilder2, CoreMatchers.not(testBeanBuilder3));
 
+        testBeanBuilder3.withFieldA("B").withFieldB(6L);
+
         TestBean testBean = testBeanBuilder3.build();
 
         MatcherAssert.assertThat(testBean.getFieldA(), Matchers.is("A"));
         MatcherAssert.assertThat(testBean.getFieldB(), Matchers.is(5L));
+
 
     }
 
