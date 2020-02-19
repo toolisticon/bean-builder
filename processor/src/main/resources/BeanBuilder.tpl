@@ -22,6 +22,16 @@ ${visibility} class ${ builderClassName } {
 
     }
 
+    private ${ builderClassName } createNextBuilder() {
+        ${ builderClassName } builder = new ${ builderClassName }();
+
+!{for attribute : attributes}
+        builder.${attribute.fieldName} = this.${attribute.fieldName};
+!{/for}
+
+        return builder;
+    }
+
     /**
      * Creates the instance.
      */
@@ -39,8 +49,9 @@ ${visibility} class ${ builderClassName } {
 
 !{for attribute : attributes}
     public ${ builderClassName } with${attribute.getCCFieldName} (${attribute.shortTypeName} value){
-        this.${attribute.fieldName} = value;
-        return this;
+        ${ builderClassName } nextBuilder = createNextBuilder();
+        nextBuilder.${attribute.fieldName} = value;
+        return nextBuilder;
     }
 
 !{/for}
