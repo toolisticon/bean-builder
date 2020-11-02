@@ -49,6 +49,16 @@
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <excludePackageNames>
+                        io.toolisticon.murks
+                    </excludePackageNames>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
