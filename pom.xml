@@ -256,6 +256,7 @@
                     <plugin>
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <configuration>
+                            <source>${java.version}</source>
                             <additionalparam>-Xdoclint:none</additionalparam>
                         </configuration>
                     </plugin>
