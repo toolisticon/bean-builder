@@ -1,6 +1,6 @@
 package io.toolisticon.example.beanbuilderapexample;
 
-import io.toolisticon.murks.CustomPackageTestBeanBuilder;
+import io.toolisticon.example.murks.CustomPackageTestBeanBuilder;
 
 public class TestUsageClass {
 
