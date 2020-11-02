@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.toolisticon.beanbuilder</groupId>
@@ -75,15 +76,15 @@
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <encoding>UTF-8</encoding>
 
-        <java.version>1.6</java.version>
+        <java.version>1.7</java.version>
 
-        <java.compile.source.version>1.6</java.compile.source.version>
-        <java.compile.target.version>1.6</java.compile.target.version>
+        <java.compile.source.version>1.7</java.compile.source.version>
+        <java.compile.target.version>1.7</java.compile.target.version>
 
 
-        <compiletesting.version>0.6.0</compiletesting.version>
-        <spiap.version>0.7.0</spiap.version>
-        <annotationProcessorToolkit.version>0.12.0</annotationProcessorToolkit.version>
+        <cute.version>0.9.0</cute.version>
+        <spiap.version>0.8.0</spiap.version>
+        <annotationProcessorToolkit.version>0.14.4</annotationProcessorToolkit.version>
 
         <!-- versions of test dependencies -->
         <junit.version>4.12</junit.version>
@@ -173,11 +174,6 @@
             </plugin>
 
             <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-            </plugin>
-
-            <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <executions>
                     <execution>
@@ -207,18 +203,6 @@
                         <source>${java.compile.source.version}</source>
                         <target>${java.compile.target.version}</target>
                     </configuration>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.felix</groupId>
-                    <artifactId>maven-bundle-plugin</artifactId>
-                    <extensions>true</extensions>
-                    <configuration>
-                        <instructions>
-                            <Export-Package>io.toolisticon.beanbuilder</Export-Package>
-                        </instructions>
-                    </configuration>
-                    <version>${maven-bundle-plugin.version}</version>
                 </plugin>
 
                 <plugin>
@@ -440,9 +424,9 @@
             </dependency>
 
             <dependency>
-                <groupId>io.toolisticon.compiletesting</groupId>
-                <artifactId>compiletesting</artifactId>
-                <version>${compiletesting.version}</version>
+                <groupId>io.toolisticon.cute</groupId>
+                <artifactId>cute</artifactId>
+                <version>${cute.version}</version>
                 <scope>test</scope>
             </dependency>
 

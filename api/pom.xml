@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>beanbuilder-api</artifactId>
-    <packaging>bundle</packaging>
+    <packaging>jar</packaging>
 
     <parent>
         <groupId>io.toolisticon.beanbuilder</groupId>
@@ -11,13 +11,6 @@
     </parent>
 
     <name>beanbuilder-api</name>
-
-
-    <dependencies>
-
-
-    </dependencies>
-
 
     <build>
 
