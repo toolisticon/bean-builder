@@ -8,7 +8,7 @@
     <parent>
         <groupId>io.toolisticon.beanbuilder</groupId>
         <artifactId>example-parent</artifactId>
-        <version>1.3.2</version>
+        <version>1.3.3</version>
     </parent>
 
     <name>example</name>
@@ -46,6 +46,16 @@
                             <version>${lombok.version}</version>
                         </path>
                     </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <excludePackageNames>
+                        io.toolisticon.murks
+                    </excludePackageNames>
                 </configuration>
             </plugin>
 
