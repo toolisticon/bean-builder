@@ -24,17 +24,34 @@ Annotation processor that
 
 # How does it work?
 
-Just add the bean builder annotation processor dependency to your
+
+First you need to add the bean builder annotation processor api dependency to your project.
 
 ```xml
 <dependencies>
     <!-- must be on provided scope since it is just needed at compile time -->
     <dependency>
 	<groupId>io.toolisticon.beanbuilder</groupId>
-	<artifactId>beanbuilder-processor</artifactId>
-        <scope>provided</scope>
+	<artifactId>beanbuilder-api</artifactId>
+    <version>${CURRENT_VERSION}</version>
     </dependency>
 </dependencies>
+```
+
+The annotation processor should be applied by defining it in annotation processor path of maven-compile-plugin:
+```xml
+<plugin>
+   <artifactId>maven-compiler-plugin</artifactId>
+   <configuration combine.self="append">
+       <annotationProcessorPaths>
+           <path>
+               <groupId>io.toolisticon.beanbuilder</groupId>
+               <artifactId>beanbuilder-processor</artifactId>
+               <version>${CURRENT_VERSION}</version>
+           </path>
+       </annotationProcessorPaths>
+   </configuration>
+</plugin>
 ```
 
 Bean builder classes can be created by annotating your bean class with the _Builder_ annotation or by using the _ThirdPartyBeanBuilder_ annoation in a packacke-info.java file.
