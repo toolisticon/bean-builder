@@ -1,12 +1,12 @@
 package io.toolisticon.beanbuilder.processor;
 
-import io.toolisticon.annotationprocessortoolkit.AbstractAnnotationProcessor;
-import io.toolisticon.annotationprocessortoolkit.tools.AnnotationUtils;
-import io.toolisticon.annotationprocessortoolkit.tools.TypeUtils;
-import io.toolisticon.annotationprocessortoolkit.tools.corematcher.CoreMatchers;
-import io.toolisticon.annotationprocessortoolkit.tools.fluentvalidator.FluentElementValidator;
+import io.toolisticon.aptk.tools.AbstractAnnotationProcessor;
+import io.toolisticon.aptk.tools.AnnotationUtils;
+import io.toolisticon.aptk.tools.TypeUtils;
+import io.toolisticon.aptk.tools.corematcher.CoreMatchers;
+import io.toolisticon.aptk.tools.fluentvalidator.FluentElementValidator;
 import io.toolisticon.beanbuilder.api.ThirdPartyBeanBuilder;
-import io.toolisticon.spiap.api.Service;
+import io.toolisticon.spiap.api.SpiService;
 
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
@@ -22,7 +22,7 @@ import java.util.Set;
 /**
  * Annotation Processor for {@link io.toolisticon.beanbuilder.api.ThirdPartyBeanBuilder}.
  */
-@Service(Processor.class)
+@SpiService(Processor.class)
 public class ThirdPartyBeanBuilderProcessor extends AbstractAnnotationProcessor {
 
     private final static Set<String> SUPPORTED_ANNOTATIONS = createSupportedAnnotationSet(ThirdPartyBeanBuilder.class);

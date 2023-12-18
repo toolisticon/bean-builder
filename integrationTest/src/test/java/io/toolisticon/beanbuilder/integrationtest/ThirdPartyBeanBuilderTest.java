@@ -1,7 +1,8 @@
 package io.toolisticon.beanbuilder.integrationtest;
 
+import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
+
 import org.junit.Test;
 
 public class ThirdPartyBeanBuilderTest {
@@ -11,8 +12,8 @@ public class ThirdPartyBeanBuilderTest {
 
         TestBean testBean = TestBeanBuilder.createBuilder().withFieldA("A").withFieldB(1L).build();
 
-        MatcherAssert.assertThat(testBean.getFieldA(), Matchers.is("A"));
-        MatcherAssert.assertThat(testBean.getFieldB(), Matchers.is(1L));
+        MatcherAssert.assertThat(testBean.getFieldA(), CoreMatchers.is("A"));
+        MatcherAssert.assertThat(testBean.getFieldB(), CoreMatchers.is(1L));
 
     }
 

@@ -1,8 +1,8 @@
 package io.toolisticon.beanbuilder.integrationtest;
 
 import io.toolisticon.customPackage.TestcaseValidUsageWithCustomPackageBuilder;
+import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 
 public class IntegrationTest {
@@ -14,7 +14,7 @@ public class IntegrationTest {
                 .withField("field")
                 .build();
 
-        MatcherAssert.assertThat(testcaseValidUsage.getField(), Matchers.is("field"));
+        MatcherAssert.assertThat(testcaseValidUsage.getField(), CoreMatchers.is("field"));
 
     }
 
@@ -25,7 +25,7 @@ public class IntegrationTest {
                 .withField("field")
                 .build();
 
-        MatcherAssert.assertThat(testcaseValidUsage.getField(), Matchers.is("field"));
+        MatcherAssert.assertThat(testcaseValidUsage.getField(), CoreMatchers.is("field"));
 
     }
 
@@ -36,7 +36,7 @@ public class IntegrationTest {
                 .withField("field")
                 .build();
 
-        MatcherAssert.assertThat(testcaseValidUsage.getField(), Matchers.is("field"));
+        MatcherAssert.assertThat(testcaseValidUsage.getField(), CoreMatchers.is("field"));
 
     }
 
@@ -48,8 +48,8 @@ public class IntegrationTest {
                 .withInheritedField("inheritedField")
                 .build();
 
-        MatcherAssert.assertThat(testcaseValidUsage.getField(), Matchers.is("field"));
-        MatcherAssert.assertThat(testcaseValidUsage.getInheritedField(), Matchers.is("inheritedField"));
+        MatcherAssert.assertThat(testcaseValidUsage.getField(), CoreMatchers.is("field"));
+        MatcherAssert.assertThat(testcaseValidUsage.getInheritedField(), CoreMatchers.is("inheritedField"));
 
     }
 
@@ -60,7 +60,7 @@ public class IntegrationTest {
                 .withField("field")
                 .build();
 
-        MatcherAssert.assertThat(testcaseValidUsage.getField(), Matchers.is("field"));
+        MatcherAssert.assertThat(testcaseValidUsage.getField(), CoreMatchers.is("field"));
 
     }
 

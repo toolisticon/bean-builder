@@ -2,7 +2,7 @@ package io.toolisticon.beanbuilder.integrationtest;
 
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 /**
@@ -24,8 +24,8 @@ public class ImmutableBuilderTest {
 
         TestBean testBean = testBeanBuilder3.build();
 
-        MatcherAssert.assertThat(testBean.getFieldA(), Matchers.is("A"));
-        MatcherAssert.assertThat(testBean.getFieldB(), Matchers.is(5L));
+        MatcherAssert.assertThat(testBean.getFieldA(), CoreMatchers.is("A"));
+        MatcherAssert.assertThat(testBean.getFieldB(), CoreMatchers.is(5L));
 
 
     }

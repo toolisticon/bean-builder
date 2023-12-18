@@ -1,8 +1,8 @@
 package io.toolisticon.beanbuilder.processor;
 
-import io.toolisticon.annotationprocessortoolkit.tools.BeanUtils;
+import io.toolisticon.aptk.tools.BeanUtils;
+import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -18,7 +18,7 @@ public class AttributeTest {
         BeanUtils.AttributeResult attributeResult = Mockito.mock(BeanUtils.AttributeResult.class);
         Attribute unit = new Attribute(attributeResult);
 
-        MatcherAssert.assertThat(unit.getWrappedAttribute(), Matchers.is(attributeResult));
+        MatcherAssert.assertThat(unit.getWrappedAttribute(), CoreMatchers.equalTo(attributeResult));
 
     }
 
