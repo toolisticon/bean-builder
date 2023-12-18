@@ -14,4 +14,15 @@ public class TestcaseValidUsage {
     public void setField(String field) {
         this.field = field;
     }
+
+
+    private boolean primitiveValue;
+
+    public boolean isPrimitiveValue() {
+        return primitiveValue;
+    }
+
+    public void setPrimitiveValue(boolean primitiveValue) {
+        this.primitiveValue = primitiveValue;
+    }
 }

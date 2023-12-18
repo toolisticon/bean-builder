@@ -1,7 +1,8 @@
 package io.toolisticon.beanbuilder.processor;
 
 
-import io.toolisticon.annotationprocessortoolkit.tools.BeanUtils;
+import io.toolisticon.aptk.tools.BeanUtils;
+import io.toolisticon.aptk.tools.TypeMirrorWrapper;
 
 public class Attribute {
 
@@ -19,12 +20,9 @@ public class Attribute {
         return wrappedAttribute.getFieldName().substring(0,1).toUpperCase() + (wrappedAttribute.getFieldName().length() > 1 ? wrappedAttribute.getFieldName().substring(1) : "");
     }
 
-    public String getFQTypeName () {
-        return wrappedAttribute.getFieldTypeElement().getQualifiedName().toString();
-    }
 
     public String getShortTypeName () {
-        return wrappedAttribute.getFieldTypeElement().getSimpleName().toString();
+        return wrappedAttribute.getFieldTypeMirror().getSimpleName().toString();
     }
 
     public BeanUtils.AttributeResult getWrappedAttribute() {

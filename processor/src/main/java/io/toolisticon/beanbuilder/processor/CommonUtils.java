@@ -1,9 +1,10 @@
 package io.toolisticon.beanbuilder.processor;
 
-import io.toolisticon.annotationprocessortoolkit.tools.BeanUtils;
-import io.toolisticon.annotationprocessortoolkit.tools.FilerUtils;
-import io.toolisticon.annotationprocessortoolkit.tools.MessagerUtils;
-import io.toolisticon.annotationprocessortoolkit.tools.generators.SimpleJavaWriter;
+import io.toolisticon.aptk.tools.BeanUtils;
+import io.toolisticon.aptk.tools.FilerUtils;
+import io.toolisticon.aptk.tools.MessagerUtils;
+import io.toolisticon.aptk.tools.TypeMirrorWrapper;
+import io.toolisticon.aptk.tools.generators.SimpleJavaWriter;
 
 import javax.lang.model.element.TypeElement;
 import java.io.IOException;
@@ -66,7 +67,7 @@ final class CommonUtils {
         Set<String> imports = new HashSet<String>();
         imports.add(typeElement.getQualifiedName().toString());
         for (Attribute attribute : attributes) {
-            imports.add(attribute.getFQTypeName());
+            imports.addAll(attribute.getWrappedAttribute().getFieldTypeMirror().getImports());
         }
 
         // Fill Model

@@ -1,9 +1,8 @@
 package io.toolisticon.beanbuilder.processor;
 
-import io.toolisticon.annotationprocessortoolkit.tools.MessagerUtils;
-import io.toolisticon.annotationprocessortoolkit.tools.corematcher.CoreMatcherValidationMessages;
+import io.toolisticon.aptk.tools.MessagerUtils;
+import io.toolisticon.aptk.tools.corematcher.CoreMatcherValidationMessages;
 import io.toolisticon.cute.CompileTestBuilder;
-import io.toolisticon.cute.JavaFileObjectUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,6 +35,7 @@ public class BeanBuilderProcessorTest {
         compileTestBuilder
                 .addSources("testcases/TestcaseValidUsage.java")
                 .compilationShouldSucceed()
+                .expectThatGeneratedSourceFileExists("io.toolisticon.spiap.processor.tests.TestcaseValidUsageBuilder")
                 .executeTest();
     }
 
@@ -45,6 +45,7 @@ public class BeanBuilderProcessorTest {
         compileTestBuilder
                 .addSources("testcases/TestcaseValidUsageWithCustomClassName.java")
                 .compilationShouldSucceed()
+                .expectThatGeneratedSourceFileExists("io.toolisticon.spiap.processor.tests.CustomTestBeanBuilder")
                 .executeTest();
     }
 
@@ -53,7 +54,8 @@ public class BeanBuilderProcessorTest {
     public void test_valid_usage_with_custom_packagename() {
         compileTestBuilder
                 .addSources("testcases/TestcaseValidUsageWithCustomPackage.java")
-                .compilationShouldSucceed()
+                .useCompilerOptions()
+                .expectThatGeneratedSourceFileExists("io.toolisticon.customPackage.TestcaseValidUsageWithCustomPackageBuilder")
                 .executeTest();
     }
 
@@ -63,6 +65,7 @@ public class BeanBuilderProcessorTest {
 
         compileTestBuilder
                 .addSources("testcases/TestcaseValidUsageWithInheritance.java")
+                .expectThatGeneratedSourceFileExists("io.toolisticon.spiap.processor.tests.TestcaseValidUsageWithInheritanceBuilder")
                 .compilationShouldSucceed()
                 .executeTest();
     }
@@ -71,8 +74,9 @@ public class BeanBuilderProcessorTest {
     public void test_valid_usage_without_inheritance() {
 
         compileTestBuilder
-                .addSources("testcases/TestcaseValidUsageWithInheritance.java")
+                .addSources("testcases/TestcaseValidUsageWithoutInheritance.java")
                 .compilationShouldSucceed()
+                .expectThatGeneratedSourceFileExists("io.toolisticon.spiap.processor.tests.TestcaseValidUsageWithoutInheritanceBuilder")
                 .executeTest();
     }
 
