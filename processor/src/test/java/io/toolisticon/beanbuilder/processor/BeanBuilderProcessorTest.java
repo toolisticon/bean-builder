@@ -31,11 +31,20 @@ public class BeanBuilderProcessorTest {
 
     @Test
     public void test_valid_usage() {
-
         compileTestBuilder
                 .addSources("testcases/TestcaseValidUsage.java")
                 .compilationShouldSucceed()
                 .expectThatGeneratedSourceFileExists("io.toolisticon.spiap.processor.tests.TestcaseValidUsageBuilder")
+                .executeTest();
+    }
+
+
+    @Test
+    public void test_valid_usage_withTypeArguments() {
+        compileTestBuilder
+                .addSources("testcases/TestcaseValidUsageWithTypeParameters.java")
+                .compilationShouldSucceed()
+                .expectThatGeneratedSourceFileExists("io.toolisticon.spiap.processor.tests.TestcaseValidUsageWithTypeParametersBuilder")
                 .executeTest();
     }
 

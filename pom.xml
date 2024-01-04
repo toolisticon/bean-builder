@@ -80,13 +80,13 @@
         <!-- project dependency versions -->
         <cute.version>0.12.1</cute.version>
         <spiap.version>0.11.0</spiap.version>
-        <aptk.version>0.22.9</aptk.version>
+        <aptk.version>0.22.10</aptk.version>
         <lombok.version>1.18.30</lombok.version>
 
         <!-- versions of test dependencies -->
         <junit.version>4.13.2</junit.version>
         <hamcrest.version>2.2</hamcrest.version>
-        <mockito.version>5.4.0</mockito.version>
+        <mockito.version>4.3.1</mockito.version>
 
         <!-- sonatype url-->
         <sonatype-oss-dist-mgmt-snapshots-url>https://oss.sonatype.org/content/repositories/snapshots/
@@ -553,6 +553,19 @@
 
         </profile>
     </profiles>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Sonatype Nexus Snapshots</name>
+            <url>${sonatype-oss-dist-mgmt-snapshots-url}</url>
+        </snapshotRepository>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <name>Nexus Release Repository</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
     <dependencies>
 
