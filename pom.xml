@@ -80,7 +80,7 @@
         <!-- project dependency versions -->
         <cute.version>0.12.1</cute.version>
         <spiap.version>0.11.0</spiap.version>
-        <aptk.version>0.22.11-SNAPSHOT</aptk.version>
+        <aptk.version>0.22.10</aptk.version>
         <lombok.version>1.18.30</lombok.version>
 
         <!-- versions of test dependencies -->
