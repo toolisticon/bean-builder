@@ -2,9 +2,9 @@ package io.toolisticon.beanbuilder.processor;
 
 import io.toolisticon.aptk.tools.AbstractAnnotationProcessor;
 import io.toolisticon.aptk.tools.AnnotationUtils;
-import io.toolisticon.aptk.tools.TypeUtils;
-import io.toolisticon.aptk.tools.corematcher.CoreMatchers;
+import io.toolisticon.aptk.tools.corematcher.AptkCoreMatchers;
 import io.toolisticon.aptk.tools.fluentvalidator.FluentElementValidator;
+import io.toolisticon.aptk.tools.wrapper.TypeElementWrapper;
 import io.toolisticon.beanbuilder.api.ThirdPartyBeanBuilder;
 import io.toolisticon.spiap.api.SpiService;
 
@@ -42,7 +42,7 @@ public class ThirdPartyBeanBuilderProcessor extends AbstractAnnotationProcessor 
 
             TypeMirror[] typeMirrorsToGenerateBuildersFor = AnnotationUtils.getClassArrayAttributeFromAnnotationAsTypeMirror(element, ThirdPartyBeanBuilder.class);
 
-            Set<TypeMirror> doubletFilter = new HashSet<TypeMirror>();
+            Set<TypeMirror> doubletFilter = new HashSet<>();
 
             for (TypeMirror typeMirror : typeMirrorsToGenerateBuildersFor) {
 
@@ -52,19 +52,20 @@ public class ThirdPartyBeanBuilderProcessor extends AbstractAnnotationProcessor 
                     doubletFilter.add(typeMirror);
                 }
 
-                TypeElement typeElement = TypeUtils.TypeRetrieval.getTypeElement(typeMirror);
+                // safe not to check optional
+                TypeElementWrapper typeElementWrapper = TypeElementWrapper.getByTypeMirror(typeMirror).get();
 
 
                 // first do some validations if annotation have been placed correctly
-                FluentElementValidator.createFluentElementValidator(typeElement)
-                        .is(CoreMatchers.IS_CLASS)
-                        .applyValidator(CoreMatchers.BY_MODIFIER).hasNoneOf(Modifier.ABSTRACT)
-                        .applyValidator(CoreMatchers.HAS_PUBLIC_NOARG_CONSTRUCTOR)
+                FluentElementValidator.createFluentElementValidator(typeElementWrapper.unwrap())
+                        .is(AptkCoreMatchers.IS_CLASS)
+                        .applyValidator(AptkCoreMatchers.BY_MODIFIER).hasNoneOf(Modifier.ABSTRACT)
+                        .applyValidator(AptkCoreMatchers.HAS_PUBLIC_NOARG_CONSTRUCTOR)
                         .validateAndIssueMessages();
 
 
                 // Now get all attributes
-                createBuilderClass(packageElement, typeElement, CommonUtils.getAttributes(typeElement, true));
+                createBuilderClass(packageElement, typeElementWrapper, CommonUtils.getAttributes(typeElementWrapper, true));
 
 
             }
@@ -80,20 +81,20 @@ public class ThirdPartyBeanBuilderProcessor extends AbstractAnnotationProcessor 
     /**
      * Generates the builder class
      *
-     * @param packageElement The PackageElement representing the target package for the builders
-     * @param typeElement    The TypeElement representing the class to generate the builder for
-     * @param attributes     The attributes provided by the builder
+     * @param packageElement     The PackageElement representing the target package for the builders
+     * @param typeElementWrapper The TypeElement representing the class to generate the builder for
+     * @param attributes         The attributes provided by the builder
      */
-    private void createBuilderClass(PackageElement packageElement, TypeElement typeElement, List<Attribute> attributes) {
+    private void createBuilderClass(PackageElement packageElement, TypeElementWrapper typeElementWrapper, List<Attribute> attributes) {
 
 
         // Now create builder class with attributes
         String packageName = packageElement.getQualifiedName().toString();
-        String baseClassName = typeElement.getSimpleName().toString();
-        String builderClassName = typeElement.getSimpleName().toString() + "Builder";
+        String baseClassName = typeElementWrapper.getSimpleName();
+        String builderClassName = typeElementWrapper.getSimpleName() + "Builder";
 
         // create the Builder class
-        CommonUtils.createBuilderClass(typeElement, packageName, baseClassName, builderClassName, "", attributes);
+        CommonUtils.createBuilderClass(typeElementWrapper, packageName, baseClassName, builderClassName, "", attributes);
 
 
     }

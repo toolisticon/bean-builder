@@ -8,7 +8,7 @@ import ${ import };
 /**
  * A Builder for {@link ${baseClassName}}.
  */
-${visibility} class ${ builderClassName } {
+${visibility} class ${ builderClassName }${typeArgumentDeclaration}{
 
 !{for attribute : attributes}
     private ${attribute.shortTypeName} ${attribute.fieldName};
@@ -22,8 +22,8 @@ ${visibility} class ${ builderClassName } {
 
     }
 
-    private ${ builderClassName } createNextBuilder() {
-        ${ builderClassName } builder = new ${ builderClassName }();
+    private ${ builderClassName }${typeArguments} createNextBuilder() {
+        ${ builderClassName }${typeArguments} builder = new ${ builderClassName }();
 
 !{for attribute : attributes}
         builder.${attribute.fieldName} = this.${attribute.fieldName};
@@ -35,7 +35,7 @@ ${visibility} class ${ builderClassName } {
     /**
      * Creates the instance.
      */
-    public ${baseClassName} build() {
+    public ${baseClassName}${typeArguments} build() {
 
         ${baseClassName} returnValue = new ${baseClassName}();
 
@@ -48,7 +48,7 @@ ${visibility} class ${ builderClassName } {
     }
 
 !{for attribute : attributes}
-    public ${ builderClassName } with${attribute.getCCFieldName} (${attribute.shortTypeName} value){
+    public ${ builderClassName }${typeArguments} with${attribute.getCCFieldName} (${attribute.shortTypeName} value){
         ${ builderClassName } nextBuilder = createNextBuilder();
         nextBuilder.${attribute.fieldName} = value;
         return nextBuilder;
@@ -60,7 +60,7 @@ ${visibility} class ${ builderClassName } {
     /**
      * Creates the builder instance.
      */
-    public static ${ builderClassName } createBuilder () {
+    public static ${typeArgumentDeclaration}${ builderClassName }${typeArguments} createBuilder () {
         return new ${ builderClassName }();
     }
 

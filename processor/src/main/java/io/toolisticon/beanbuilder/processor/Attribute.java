@@ -16,13 +16,14 @@ public class Attribute {
         return wrappedAttribute.getFieldName();
     }
 
-    public String getCCFieldName () {
-        return wrappedAttribute.getFieldName().substring(0,1).toUpperCase() + (wrappedAttribute.getFieldName().length() > 1 ? wrappedAttribute.getFieldName().substring(1) : "");
+    public String getCCFieldName() {
+        return wrappedAttribute.getFieldName().substring(0, 1).toUpperCase() + (wrappedAttribute.getFieldName().length() > 1 ? wrappedAttribute.getFieldName().substring(1) : "");
     }
 
 
-    public String getShortTypeName () {
-        return wrappedAttribute.getFieldTypeMirror().getSimpleName().toString();
+    public String getShortTypeName() {
+        TypeMirrorWrapper fieldTypeMirror = wrappedAttribute.getFieldTypeMirror();
+        return fieldTypeMirror.getTypeDeclaration();
     }
 
     public BeanUtils.AttributeResult getWrappedAttribute() {

@@ -80,13 +80,13 @@
         <!-- project dependency versions -->
         <cute.version>0.12.1</cute.version>
         <spiap.version>0.11.0</spiap.version>
-        <aptk.version>0.22.9</aptk.version>
+        <aptk.version>0.22.11-SNAPSHOT</aptk.version>
         <lombok.version>1.18.30</lombok.version>
 
         <!-- versions of test dependencies -->
         <junit.version>4.13.2</junit.version>
         <hamcrest.version>2.2</hamcrest.version>
-        <mockito.version>4.11.0</mockito.version>
+        <mockito.version>4.3.1</mockito.version>
 
         <!-- sonatype url-->
         <sonatype-oss-dist-mgmt-snapshots-url>https://oss.sonatype.org/content/repositories/snapshots/
