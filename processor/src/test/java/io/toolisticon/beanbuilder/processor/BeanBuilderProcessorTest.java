@@ -2,7 +2,8 @@ package io.toolisticon.beanbuilder.processor;
 
 import io.toolisticon.aptk.tools.MessagerUtils;
 import io.toolisticon.aptk.tools.corematcher.CoreMatcherValidationMessages;
-import io.toolisticon.cute.CompileTestBuilder;
+import io.toolisticon.cute.Cute;
+import io.toolisticon.cute.CuteApi;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,24 +18,24 @@ import javax.tools.StandardLocation;
 public class BeanBuilderProcessorTest {
 
 
-    CompileTestBuilder.CompilationTestBuilder compileTestBuilder;
+    CuteApi.BlackBoxTestSourceFilesInterface compileTestBuilder;
 
     @Before
     public void init() {
         MessagerUtils.setPrintMessageCodes(true);
 
-        compileTestBuilder = CompileTestBuilder
-                .compilationTest()
-                .addProcessors(BeanBuilderProcessor.class);
+        compileTestBuilder = Cute
+                .blackBoxTest().given().processors(BeanBuilderProcessor.class);
     }
 
 
     @Test
     public void test_valid_usage() {
         compileTestBuilder
-                .addSources("testcases/TestcaseValidUsage.java")
-                .compilationShouldSucceed()
-                .expectThatGeneratedSourceFileExists("io.toolisticon.spiap.processor.tests.TestcaseValidUsageBuilder")
+                .andSourceFiles("testcases/TestcaseValidUsage.java")
+                .whenCompiled()
+                .thenExpectThat().compilationSucceeds()
+                .andThat().generatedSourceFile("io.toolisticon.spiap.processor.tests.TestcaseValidUsageBuilder").exists()
                 .executeTest();
     }
 
@@ -42,9 +43,10 @@ public class BeanBuilderProcessorTest {
     @Test
     public void test_valid_usage_withTypeArguments() {
         compileTestBuilder
-                .addSources("testcases/TestcaseValidUsageWithTypeParameters.java")
-                .compilationShouldSucceed()
-                .expectThatGeneratedSourceFileExists("io.toolisticon.spiap.processor.tests.TestcaseValidUsageWithTypeParametersBuilder")
+                .andSourceFiles("testcases/TestcaseValidUsageWithTypeParameters.java")
+                .whenCompiled()
+                .thenExpectThat().compilationSucceeds()
+                .andThat().generatedSourceFile("io.toolisticon.spiap.processor.tests.TestcaseValidUsageWithTypeParametersBuilder").exists()
                 .executeTest();
     }
 
@@ -52,9 +54,10 @@ public class BeanBuilderProcessorTest {
     public void test_valid_usage_with_custom_classname() {
 
         compileTestBuilder
-                .addSources("testcases/TestcaseValidUsageWithCustomClassName.java")
-                .compilationShouldSucceed()
-                .expectThatGeneratedSourceFileExists("io.toolisticon.spiap.processor.tests.CustomTestBeanBuilder")
+                .andSourceFiles("testcases/TestcaseValidUsageWithCustomClassName.java")
+                .whenCompiled()
+                .thenExpectThat().compilationSucceeds()
+                .andThat().generatedSourceFile("io.toolisticon.spiap.processor.tests.CustomTestBeanBuilder").exists()
                 .executeTest();
     }
 
@@ -62,9 +65,10 @@ public class BeanBuilderProcessorTest {
     @Test
     public void test_valid_usage_with_custom_packagename() {
         compileTestBuilder
-                .addSources("testcases/TestcaseValidUsageWithCustomPackage.java")
-                .useCompilerOptions()
-                .expectThatGeneratedSourceFileExists("io.toolisticon.customPackage.TestcaseValidUsageWithCustomPackageBuilder")
+                .andSourceFiles("testcases/TestcaseValidUsageWithCustomPackage.java")
+                .whenCompiled()
+                .thenExpectThat().compilationSucceeds()
+                .andThat().generatedSourceFile("io.toolisticon.customPackage.TestcaseValidUsageWithCustomPackageBuilder").exists()
                 .executeTest();
     }
 
@@ -73,9 +77,10 @@ public class BeanBuilderProcessorTest {
     public void test_valid_usage_with_inheritance() {
 
         compileTestBuilder
-                .addSources("testcases/TestcaseValidUsageWithInheritance.java")
-                .expectThatGeneratedSourceFileExists("io.toolisticon.spiap.processor.tests.TestcaseValidUsageWithInheritanceBuilder")
-                .compilationShouldSucceed()
+                .andSourceFiles("testcases/TestcaseValidUsageWithInheritance.java")
+                .whenCompiled()
+                .thenExpectThat().compilationSucceeds()
+                .andThat().generatedSourceFile("io.toolisticon.spiap.processor.tests.TestcaseValidUsageWithInheritanceBuilder").exists()
                 .executeTest();
     }
 
@@ -83,9 +88,10 @@ public class BeanBuilderProcessorTest {
     public void test_valid_usage_without_inheritance() {
 
         compileTestBuilder
-                .addSources("testcases/TestcaseValidUsageWithoutInheritance.java")
-                .compilationShouldSucceed()
-                .expectThatGeneratedSourceFileExists("io.toolisticon.spiap.processor.tests.TestcaseValidUsageWithoutInheritanceBuilder")
+                .andSourceFiles("testcases/TestcaseValidUsageWithoutInheritance.java")
+                .whenCompiled()
+                .thenExpectThat().compilationSucceeds()
+                .andThat().generatedSourceFile("io.toolisticon.spiap.processor.tests.TestcaseValidUsageWithoutInheritanceBuilder").exists()
                 .executeTest();
     }
 
@@ -93,9 +99,10 @@ public class BeanBuilderProcessorTest {
     public void test_invalid_usage_with_abstract_class() {
 
         compileTestBuilder
-                .addSources("testcases/TestcaseInvalidUsageAbstractClass.java")
-                .compilationShouldFail()
-                .expectErrorMessageThatContains(CoreMatcherValidationMessages.BY_MODIFIER.getCode())
+                .andSourceFiles("testcases/TestcaseInvalidUsageAbstractClass.java")
+                .whenCompiled()
+                .thenExpectThat().compilationFails()
+                .andThat().compilerMessage().ofKindError().contains(CoreMatcherValidationMessages.BY_MODIFIER.getCode())
                 .executeTest();
     }
 
@@ -103,9 +110,10 @@ public class BeanBuilderProcessorTest {
     public void test_invalid_usage_without_noarg_constructor() {
 
         compileTestBuilder
-                .addSources("testcases/TestcaseInvalidUsageNoNoargConstructor.java")
-                .compilationShouldFail()
-                .expectErrorMessageThatContains(CoreMatcherValidationMessages.HAS_PUBLIC_NOARG_CONSTRUCTOR.getCode())
+                .andSourceFiles("testcases/TestcaseInvalidUsageNoNoargConstructor.java")
+                .whenCompiled()
+                .thenExpectThat().compilationFails()
+                .andThat().compilerMessage().ofKindError().contains(CoreMatcherValidationMessages.HAS_PUBLIC_NOARG_CONSTRUCTOR.getCode())
                 .executeTest();
     }
 
@@ -113,9 +121,10 @@ public class BeanBuilderProcessorTest {
     public void test_invalid_usage_on_enum() {
 
         compileTestBuilder
-                .addSources("testcases/TestcaseInvalidUsageOnEnum.java")
-                .compilationShouldFail()
-                .expectErrorMessageThatContains(CoreMatcherValidationMessages.IS_CLASS.getCode())
+                .andSourceFiles("testcases/TestcaseInvalidUsageOnEnum.java")
+                .whenCompiled()
+                .thenExpectThat().compilationFails()
+                .andThat().compilerMessage().ofKindError().contains(CoreMatcherValidationMessages.IS_CLASS.getCode())
                 .executeTest();
     }
 
@@ -123,21 +132,23 @@ public class BeanBuilderProcessorTest {
     public void test_Test_invalid_usage_on_interface() {
 
         compileTestBuilder
-                .addSources("testcases/TestcaseInvalidUsageOnInterface.java")
-                .compilationShouldFail()
-                .expectErrorMessageThatContains(CoreMatcherValidationMessages.IS_CLASS.getCode())
+                .andSourceFiles("testcases/TestcaseInvalidUsageOnInterface.java")
+                .whenCompiled()
+                .thenExpectThat().compilationFails()
+                .andThat().compilerMessage().ofKindError().contains(CoreMatcherValidationMessages.IS_CLASS.getCode())
                 .executeTest();
     }
 
     @Test
     public void test_Test_valid_of_third_party_bean_builder_with_doublet() {
 
-        CompileTestBuilder
-                .compilationTest()
-                .addProcessors(ThirdPartyBeanBuilderProcessor.class)
-                .addSources("testcases/thirdpartybeanbuilderwithdoublet/package-info.java")
-                .compilationShouldSucceed()
-                .expectThatJavaFileObjectExists(StandardLocation.SOURCE_OUTPUT, "io.toolisticon.beanbuilder.processor.ObjectBuilder", JavaFileObject.Kind.SOURCE)
+        Cute
+                .blackBoxTest().given()
+                .processors(ThirdPartyBeanBuilderProcessor.class)
+                .andSourceFiles("testcases/thirdpartybeanbuilderwithdoublet/package-info.java")
+                .whenCompiled().thenExpectThat()
+                .compilationSucceeds()
+                .andThat().javaFileObject(StandardLocation.SOURCE_OUTPUT, "io.toolisticon.beanbuilder.processor.ObjectBuilder", JavaFileObject.Kind.SOURCE).exists()
                 .executeTest();
     }
 
